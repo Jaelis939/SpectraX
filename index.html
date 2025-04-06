@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpectraX | Ultimate Roblox Executor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-light: #121212;
+            --black-lighter: #1a1a1a;
+            --purple: #8a2be2;
+            --purple-dark: #6a1cb0;
+            --purple-light: #9d4edd;
+            --purple-lighter: #b07fec;
+            --white: #ffffff;
+            --gray: #888;
+            --gray-dark: #444;
+            --gray-light: #ccc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Particles Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(to bottom, var(--black) 0%, var(--black-light) 100%);
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 15px 5%;
+            background-color: rgba(10, 10, 10, 0.95);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            height: 40px;
+            width: auto;
+            border-radius: 50%;
+            border: 2px solid var(--purple);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(15deg);
+            box-shadow: 0 0 15px var(--purple);
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--white), var(--purple-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .x {
+            color: var(--purple);
+            -webkit-text-fill-color: initial;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            padding: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--purple);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--purple-light);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--gray);
+        }
+
+        .login-btn:hover {
+            border-color: var(--purple);
+            color: var(--purple-light);
+        }
+
+        .register-btn {
+            background: var(--purple);
+            color: var(--white);
+        }
+
+        .register-btn:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 180px 5% 100px;
+            min-height: 100vh;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 600px;
+            animation: fadeInLeft 1s ease;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .title-gradient {
+            background: linear-gradient(to right, var(--white), var(--purple-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .title-executor {
+            color: var(--purple);
+            display: block;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--gray-light);
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .download-btn {
+            background: var(--purple);
+            color: var(--white);
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .demo-btn {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--gray);
+            padding: 15px 30px;
+            border-radius: 6px;
+        }
+
+        .demo-btn:hover {
+            border-color: var(--purple);
+            color: var(--purple-light);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInRight 1s ease;
+        }
+
+        .executor-window {
+            width: 100%;
+            max-width: 600px;
+            background: var(--black-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            transform: perspective(1000px) rotateX(5deg) rotateY(-5deg);
+            transition: all 0.5s ease;
+        }
+
+        .executor-window:hover {
+            transform: perspective(1000px) rotateX(0) rotateY(0);
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.3);
+        }
+
+        .executor-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: var(--black-lighter);
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .executor-dots {
+            display: flex;
+            gap: 8px;
+            margin-right: 15px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red {
+            background: #ff5f56;
+        }
+
+        .dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .dot.green {
+            background: #27c93f;
+        }
+
+        .executor-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            color: var(--gray-light);
+        }
+
+        .executor-body {
+            padding: 0;
+        }
+
+        .executor-tabs {
+            display: flex;
+            border-bottom: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--gray);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--purple-light);
+            border-bottom: 2px solid var(--purple);
+        }
+
+        .tab:hover {
+            color: var(--white);
+            background: rgba(138, 43, 226, 0.1);
+        }
+
+        .code-editor {
+            display: flex;
+            min-height: 300px;
+            background: var(--black);
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .code-line {
+            padding: 5px 10px;
+        }
+
+        .numbers {
+            color: var(--gray-dark);
+            text-align: right;
+            padding-right: 15px;
+            user-select: none;
+            background: var(--black-lighter);
+            border-right: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .numbers span {
+            display: block;
+        }
+
+        .content {
+            color: var(--gray-light);
+            white-space: pre;
+            overflow-x: auto;
+            flex: 1;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .function {
+            color: #dcdcaa;
+        }
+
+        .method {
+            color: #d8a0df;
+        }
+
+        .executor-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background: var(--black-lighter);
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .execute-btn {
+            background: var(--purple);
+            color: var(--white);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .execute-btn:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+        }
+
+        .clear-btn {
+            background: transparent;
+            color: var(--gray);
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            border: 1px solid var(--gray-dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-btn:hover {
+            color: var(--white);
+            border-color: var(--gray);
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #27c93f;
+            animation: pulse 2s infinite;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 5%;
+            background: linear-gradient(to bottom, var(--black) 0%, var(--black-light) 100%);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--purple);
+        }
+
+        .purple {
+            color: var(--purple);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--black-lighter);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--purple), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+            border-color: rgba(138, 43, 226, 0.3);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 50%;
+            font-size: 1.8rem;
+            color: var(--purple);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: var(--purple);
+            color: var(--white);
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--white);
+        }
+
+        .feature-card p {
+            color: var(--gray-light);
+            font-size: 1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 80px 5%;
+            background: linear-gradient(to right, var(--black-light), var(--black));
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--gray-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Download Section */
+        .download {
+            padding: 120px 5%;
+            text-align: center;
+            background: linear-gradient(to bottom, var(--black-light) 0%, var(--black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .download-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .download h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .download p {
+            font-size: 1.2rem;
+            color: var(--gray-light);
+            margin-bottom: 40px;
+        }
+
+        .download-btn-large {
+            background: var(--purple);
+            color: var(--white);
+            font-size: 1.2rem;
+            padding: 18px 40px;
+            border-radius: 8px;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(138, 43, 226, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .download-btn-large:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(138, 43, 226, 0.7);
+        }
+
+        .version-info {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--black-light);
+            padding: 60px 5% 30px;
+            border-top: 1px solid rgba(138, 43, 226, 0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo .logo {
+            height: 30px;
+        }
+
+        .footer-logo .logo-text {
+            font-size: 1.2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .link-column {
+            min-width: 150px;
+        }
+
+        .link-column h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .link-column a {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .link-column a:hover {
+            color: var(--purple-light);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(138, 43, 226, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--purple);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(138, 43, 226, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(138, 43, 226, 0);
+            }
+        }
+
+        @keyframes pulseDot {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        /* Special Button Effects */
+        .neon-btn {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .neon-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--purple), var(--purple-light), var(--purple));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .neon-btn:hover::before {
+            opacity: 1;
+        }
+
+        .neon-btn::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid var(--purple);
+            border-radius: 8px;
+            z-index: -2;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .neon-btn:hover::after {
+            opacity: 1;
+            animation: neonGlow 1.5s infinite alternate;
+        }
+
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                padding-top: 150px;
+                text-align: center;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                margin-bottom: 50px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 5%;
+            }
+
+            .nav-links {
+                margin: 20px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .stat-item {
+                min-width: 150px;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-item {
+                min-width: 120px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                flex-direction: column;
+            }
+        }
+
+        /* Custom Animations */
+        .typing-animation {
+            position: relative;
+        }
+
+        .typing-animation::after {
+            content: '|';
+            position: absolute;
+            right: 0;
+            animation: blink 1s step-end infinite;
+        }
+
+        /* Ripple effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            pointer-events: none;
+        }
+        
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+        
+        .execution-notification {
+            position: absolute;
+            right: 10px;
+            background: rgba(138, 43, 226, 0.2);
+            color: #8a2be2;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles-js"></div>
+    
+    <nav class="navbar">
+        <div class="logo-container">
+            <img src="https://th.bing.com/th/id/OIG2.SEz3sHxOXFrHj9sGbzEk?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="SpectraX Logo" class="logo">
+            <span class="logo-text">SPECTRA<span class="x">X</span></span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#features" class="nav-link">Features</a>
+            <a href="#download" class="nav-link">Download</a>
+            <a href="#support" class="nav-link">Support</a>
+            <a href="#community" class="nav-link">Community</a>
+        </div>
+        <div class="nav-buttons">
+            <button class="btn login-btn pulse">Login</button>
+            <button class="btn register-btn glow">Register</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-gradient">ULTIMATE ROBLOX</span>
+                <span class="title-executor">EXECUTOR</span>
+            </h1>
+            <p class="hero-subtitle">Experience unparalleled performance with SpectraX - the most powerful and undetectable Roblox executor on the market.</p>
+            <div class="hero-buttons">
+                <button class="btn download-btn neon-btn">DOWNLOAD NOW <i class="fas fa-arrow-down"></i></button>
+                <button class="btn demo-btn">WATCH DEMO <i class="fas fa-play"></i></button>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="executor-window">
+                <div class="executor-header">
+                    <div class="executor-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span class="executor-title">SpectraX Executor v4.2</span>
+                </div>
+                <div class="executor-body">
+                    <div class="executor-tabs">
+                        <div class="tab active">Script Hub</div>
+                        <div class="tab">Executor</div>
+                        <div class="tab">Settings</div>
+                    </div>
+                    <div class="code-editor">
+                        <div class="code-line numbers">
+                            <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
+                        </div>
+                        <div class="code-line content typing-animation">
+                            <span class="keyword">local</span> player = game:GetService(<span class="string">"Players"</span>).LocalPlayer<br>
+                            <span class="keyword">local</span> character = player.Character <span class="keyword">or</span> player.CharacterAdded:Wait()<br>
+                            <span class="keyword">local</span> humanoid = character:WaitForChild(<span class="string">"Humanoid"</span>)<br>
+                            <br>
+                            <span class="function">function</span> <span class="method">fly</span>()<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">local</span> bodyVelocity = Instance.new(<span class="string">"BodyVelocity"</span>, character)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;bodyVelocity.Velocity = Vector3.new(<span class="number">0</span>, <span class="number">50</span>, <span class="number">0</span>)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;bodyVelocity.MaxForce = Vector3.new(<span class="number">0</span>, math.huge, <span class="number">0</span>)<br>
+                            <span class="function">end</span><br>
+                            <br>
+                            <span class="method">fly</span>()
+                        </div>
+                    </div>
+                    <div class="executor-footer">
+                        <button class="execute-btn">Execute <i class="fas fa-bolt"></i></button>
+                        <button class="clear-btn">Clear</button>
+                        <div class="status-indicator">
+                            <div class="status-dot"></div>
+                            <span>Connected to Roblox</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="features" id="features">
+        <h2 class="section-title">WHY CHOOSE <span class="purple">SPECTRAX</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Lightning Fast</h3>
+                <p>Our optimized execution engine delivers scripts faster than any other executor available.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Undetectable</h3>
+                <p>Advanced anti-ban protection keeps you safe while using SpectraX.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Lua 5.1</h3>
+                <p>Full Lua 5.1 support with additional Roblox-specific functions.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3>Auto Attach</h3>
+                <p>Automatically detects and attaches to Roblox processes.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Script Hub</h3>
+                <p>Built-in script hub with hundreds of premium scripts.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Auto Update</h3>
+                <p>Regular updates with new features and bypasses.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number" data-count="250000">0</div>
+            <div class="stat-label">Active Users</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="99">0</div>
+            <div class="stat-label">Uptime %</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="1200">0</div>
+            <div class="stat-label">Scripts</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" data-count="24">0</div>
+            <div class="stat-label">Updates/Month</div>
+        </div>
+    </section>
+
+    <section class="download" id="download">
+        <div class="download-content">
+            <h2>READY TO EXPERIENCE <span class="purple">REAL POWER</span>?</h2>
+            <p>Join thousands of satisfied users and take your Roblox experience to the next level.</p>
+            <button class="btn download-btn-large neon-btn">DOWNLOAD SPECTRAX v4.2 <i class="fas fa-download"></i></button>
+            <div class="version-info">
+                <span class="version">Current Version: 4.2.1</span>
+                <span class="update">Last Updated: Today</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="support" id="support">
+        <h2 class="section-title">SUPPORT <span class="purple">CENTER</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>FAQ</h3>
+                <p>Find answers to common questions about installation and usage.</p>
+                <button class="btn support-btn">View FAQs</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>Documentation</h3>
+                <p>Comprehensive guides and API references for developers.</p>
+                <button class="btn support-btn">Read Docs</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Live Support</h3>
+                <p>Get real-time help from our support team via Discord.</p>
+                <button class="btn support-btn">Join Discord</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="community" id="community">
+        <h2 class="section-title">JOIN OUR <span class="purple">COMMUNITY</span></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fab fa-discord"></i>
+                </div>
+                <h3>Discord</h3>
+                <p>Connect with other users, share scripts, and get support.</p>
+                <button class="btn community-btn">Join Server</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h3>YouTube</h3>
+                <p>Tutorials, showcases, and updates from the SpectraX team.</p>
+                <button class="btn community-btn">Subscribe</button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+                <h3>GitHub</h3>
+                <p>Contribute to open-source components and report issues.</p>
+                <button class="btn community-btn">View Repos</button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="https://th.bing.com/th/id/OIG2.SEz3sHxOXFrHj9sGbzEk?w=1024&h=1024&rs=1&pid=ImgDetMain" alt="SpectraX Logo" class="logo">
+                <span class="logo-text">SPECTRA<span class="x">X</span></span>
+            </div>
+            <div class="footer-links">
+                <div class="link-column">
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Downloads</a>
+                    <a href="#">Changelog</a>
+                    <a href="#">Pricing</a>
+                </div>
+                <div class="link-column">
+                    <h4>Resources</h4>
+                    <a href="#">Documentation</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Script Hub</a>
+                    <a href="#">API</a>
+                </div>
+                <div class="link-column">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="link-column">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookie Policy</a>
+                    <a href="#">Licenses</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="social-links">
+                <a href="#"><i class="fab fa-discord"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+            </div>
+            <div class="copyright">
+                &copy; 2025 SpectraX Team. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#8a2be2"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": true,
+                        "speed": 2,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#8a2be2",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1,
+                    "direction": "none",
+                    "random": true,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": true,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Animate stats counting
+        const statNumbers = document.querySelectorAll('.stat-number');
+        const statsSection = document.querySelector('.stats');
+        
+        const animateStats = () => {
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-count'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                
+                let current = 0;
+                const increment = () => {
+                    current += step;
+                    if (current < target) {
+                        stat.textContent = Math.floor(current);
+                        requestAnimationFrame(increment);
+                    } else {
+                        stat.textContent = target;
+                    }
+                };
+                
+                increment();
+            });
+        };
+
+        // Intersection Observer for stats animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
+
+        // Typewriter effect for code editor
+        const codeContent = document.querySelector('.content.typing-animation');
+        if (codeContent) {
+            const text = codeContent.innerHTML;
+            codeContent.innerHTML = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < text.length) {
+                    codeContent.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, Math.random() * 50 + 20);
+                } else {
+                    codeContent.classList.remove('typing-animation');
+                }
+            };
+            
+            setTimeout(typeWriter, 1000);
+        }
+
+        // Button click effects
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = `${size}px`;
+                ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+                ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Execute button functionality
+        const executeBtn = document.querySelector('.execute-btn');
+        if (executeBtn) {
+            executeBtn.addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Executing...';
+                setTimeout(() => {
+                    this.innerHTML = 'Execute <i class="fas fa-bolt"></i>';
+                    
+                    const notification = document.createElement('div');
+                    notification.className = 'execution-notification';
+                    notification.textContent = 'Script executed successfully!';
+                    document.querySelector('.executor-footer').appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 3000);
+                }, 2000);
+            });
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Login/Register buttons
+        document.querySelector('.login-btn').addEventListener('click', () => {
+            alert('Login functionality would be implemented here');
+        });
+
+        document.querySelector('.register-btn').addEventListener('click', () => {
+            alert('Registration functionality would be implemented here');
+        });
+
+        // Demo button
+        document.querySelector('.demo-btn')?.addEventListener('click', () => {
+            window.open('https://youtu.be/dQw4w9WgXcQ', '_blank');
+        });
+
+        // Support buttons
+        document.querySelectorAll('.support-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Support section would open here');
+            });
+        });
+
+        // Community buttons
+        document.querySelectorAll('.community-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('Community section would open here');
+            });
+        });
+
+        // Download button
+        document.querySelector('.download-btn-large').addEventListener('click', () => {
+            alert('Download would start here');
+        });
+    </script>
+</body>
+</html>
